@@ -3,6 +3,10 @@
     padding-bottom: 20px;
 }
 
+html {
+       overflow-y: scroll;
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -15,35 +19,6 @@ select,
 textarea {
     max-width: 280px;
 }
-
-.flexbox {
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    overflow: hidden;
-    margin-top: 20px;
-}
-
-    .flexbox .col {
-        -ms-flex: 1;
-        flex: 1;
-        padding: 10px;
-    }
-
-        .flexbox .col:nth-child(1) {
-            background: #ccc;
-            order: 1;
-        }
-
-        .flexbox .col:nth-child(2) {
-            background: #eee;
-            order: 0;
-        }
-
-        .flexbox .col:nth-child(3) {
-            background: #eee;
-            order: 2;
-        }
 
 .story-card, .task-card, .bug-card {
     min-height: 40px !important;
@@ -111,6 +86,10 @@ textarea {
 }
 
 .board-col {
+    -moz-min-width: 260px;
+    -ms-min-width: 260px;
+    -o-min-width: 260px;
+    -webkit-min-width: 260px;
     min-width: 260px;
 }
 
