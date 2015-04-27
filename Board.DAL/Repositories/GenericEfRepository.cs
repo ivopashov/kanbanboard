@@ -13,35 +13,35 @@ namespace Board.DAL.Repositories
         private DbSet<T> EntitySet;
         private BoardContext _context;
 
-        public GenericEfRepository(BoardContext context)
+        protected GenericEfRepository(BoardContext context)
         {
             EntitySet = context.Set<T>();
             _context = context;
         }
 
-        public T GetById(int id)
+        public virtual T GetById(int id)
         {
             return this.Find(a => a.Id == id).SingleOrDefault();
         }
 
-        public IQueryable<T> GetAll()
+        public virtual IQueryable<T> GetAll()
         {
             return EntitySet;
         }
 
-        public IQueryable<T> Find(Expression<Func<T, bool>> predicate)
+        public virtual IQueryable<T> Find(Expression<Func<T, bool>> predicate)
         {
             return EntitySet.Where(predicate);
         }
 
-        public int Add(T entity)
+        public virtual int Add(T entity)
         {
             EntitySet.Add(entity);
             Save();
             return entity.Id;
         }
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             var oldEntity = this.Find(a => a.Id == entity.Id).SingleOrDefault();
             if (oldEntity == null) throw new Exception("Could not find searched for object of type" + typeof(T) + " with id " + entity.Id);
@@ -51,13 +51,13 @@ namespace Board.DAL.Repositories
             Save();
         }
 
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             EntitySet.Remove(entity);
             Save();
         }
 
-        public void Save()
+        public virtual void Save()
         {
             _context.SaveChanges();
         }

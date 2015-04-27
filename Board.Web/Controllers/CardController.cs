@@ -1,24 +1,23 @@
-﻿using Board.DAL.Repositories;
-using Board.Data.Enums;
-using Board.Web.Models;
-using NLog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
+using Board.Data.Enums;
 using Board.Data.Models;
+using Board.DAL.Repositories;
+using Board.Web.Helpers;
+using Board.Web.Logging;
+using Board.Web.Models;
 
 namespace Board.Web.Controllers
 {
     public class CardController : ApiController
     {
         private readonly CardRepository _cardRepository;
-        private readonly Logger _logger;
+        private readonly ILogger _logger;
 
-        public CardController(CardRepository cardRepository, Logger logger)
+        public CardController(CardRepository cardRepository, ILogger logger)
         {
             if (cardRepository == null) throw new NullReferenceException("cardRepository");
             if (logger == null) throw new NullReferenceException("logger");
@@ -36,21 +35,9 @@ namespace Board.Web.Controllers
                 // it doesn't make much sense to map here as vm and db objects are equivalent
                 //but a good practice says that it is generally not advisable to return db objects to the front end
                 var vmCards = Mapper.Map<List<CardViewModel>>(dbCardEntities);
-                var dict = new Dictionary<Status, List<object>>();
 
-                foreach (var item in vmCards)
-                {
-                    if (dict.ContainsKey(item.Status))
-                    {
-                        dict[item.Status].Add(item);
-                    }
-                    else
-                    {
-                        dict.Add(item.Status, new List<object> { item });
-                    }
-                }
-
-                return Ok(dict);
+                var result = DataManipulationHelper.ParseListOfCardsToDictionaryByStatuses(vmCards);
+                return Ok(result);
             }
             catch (Exception e)
             {
@@ -61,7 +48,7 @@ namespace Board.Web.Controllers
 
         [HttpGet]
         [Route("api/cards/getall/bystatus")]
-        public IHttpActionResult GetAll(Status status)
+        public IHttpActionResult GetAllByStatus(Status status)
         {
             try
             {

@@ -1,3 +1,5 @@
+using Board.Web.Logging;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Board.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Board.Web.App_Start.NinjectWebCommon), "Stop")]
 
@@ -65,7 +67,7 @@ namespace Board.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<Logger>().ToMethod(x => LogManager.GetLogger(x.Request.ParentRequest.Service.FullName));
+            kernel.Bind<ILogger>().To<NLogLogger>().WithConstructorArgument("loggerName", x => x.Request.ParentContext.Request.Service.FullName);
         }        
     }
 }

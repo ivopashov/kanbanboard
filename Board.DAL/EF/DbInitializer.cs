@@ -65,8 +65,7 @@ namespace Board.DAL.EF
                     Status=Status.NotStarted,
                     Title="task-313",
                     Type=CardType.Task
-                },
-                
+                }
             };
 
             cards.ForEach(a => context.Cards.AddOrUpdate(b => b.Id, a));

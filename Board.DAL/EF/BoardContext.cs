@@ -12,7 +12,7 @@ namespace Board.DAL.EF
             Database.SetInitializer<BoardContext>(new DbInitializer());
         }
 
-        public DbSet<Card> Cards { get; set; }
+        public virtual DbSet<Card> Cards { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

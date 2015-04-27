@@ -184,6 +184,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DataManipulationHelper.cs" />
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Logging\NLogLogger.cs" />
     <Compile Include="Mapping\AutoMapperInitializer.cs" />
     <Compile Include="Models\CardViewModel.cs" />
     <Compile Include="Models\ChangeStatusViewModel.cs" />
@@ -195,6 +198,7 @@
     <Content Include="App\controllers\boardController.js" />
     <Content Include="App\services\boardService.js" />
     <Content Include="App\services\notificationService.js" />
+    <Content Include="App\services\stringManipulationService.js" />
     <Content Include="App\templates\board.html" />
     <Content Include="App\templates\dialog\createNewCard.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
