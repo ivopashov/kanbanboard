@@ -1,79 +1,69 @@
-using System;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
-using System.Linq;
-using System.Collections.Generic;
-using Board.Data.Models;
 using Board.Data.Enums;
+using Board.Data.Models;
 
-namespace Board.DAL.Migrations
+namespace Board.DAL.EF
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<Board.DAL.EF.BoardContext>
+    public class DbInitializer : DropCreateDatabaseIfModelChanges<BoardContext>
     {
-        public Configuration()
+        protected override void Seed(BoardContext context)
         {
-            AutomaticMigrationsEnabled = true;
-            ContextKey = "Board.DAL.EF.BoardContext";
-            AutomaticMigrationDataLossAllowed = false;
-        }
-
-        protected override void Seed(Board.DAL.EF.BoardContext context)
-        {
-
             var cards = new List<Card>() 
             { 
                 new Card()
                 {
                     Status=Status.Done,
-                    Title="QCCUT-111",
+                    Title="bug-111",
                     Type=CardType.Bug
                 },
                 new Card()
                 {
                     Status=Status.InProgress,
-                    Title="QCCUT-112",
+                    Title="bug-112",
                     Type=CardType.Bug
                 },
                 new Card()
                 {
                     Status=Status.NotStarted,
-                    Title="QCCUT-113",
+                    Title="bug-113",
                     Type=CardType.Bug
                 },
                  new Card()
                 {
                     Status=Status.Done,
-                    Title="QCCUT-211",
+                    Title="story-211",
                     Type=CardType.Story
                 },
                 new Card()
                 {
                     Status=Status.InProgress,
-                    Title="QCCUT-212",
+                    Title="story-212",
                     Type=CardType.Story
                 },
                 new Card()
                 {
                     Status=Status.NotStarted,
-                    Title="QCCUT-213",
+                    Title="story-213",
                     Type=CardType.Story
                 },
                   new Card()
                 {
                     Status=Status.Done,
-                    Title="QCCUT-311",
+                    Title="task-311",
                     Type=CardType.Task
                 },
                 new Card()
                 {
                     Status=Status.InProgress,
-                    Title="QCCUT-312",
+                    Title="task-312",
                     Type=CardType.Task
                 },
                 new Card()
                 {
                     Status=Status.NotStarted,
-                    Title="QCCUT-313",
+                    Title="task-313",
                     Type=CardType.Task
                 },
                 
@@ -81,6 +71,7 @@ namespace Board.DAL.Migrations
 
             cards.ForEach(a => context.Cards.AddOrUpdate(b => b.Id, a));
             context.SaveChanges();
+            base.Seed(context);
         }
     }
 }

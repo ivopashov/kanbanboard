@@ -1,6 +1,5 @@
-﻿using Board.DAL.EF;
-using Board.Data.Models;
-using System;
+﻿using Board.Data.Models;
+using Board.DAL.EF;
 
 namespace Board.DAL.Repositories
 {

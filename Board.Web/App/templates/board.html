@@ -1,4 +1,4 @@
-﻿<h1>Kanban Board</h1>
+﻿<!--<h1>Kanban Board</h1>
 <div class="btn btn-sm btn-primary" ng-click="createNew()">Create new card</div>
 <div class="flexbox">
     <div ng-repeat="status in allStatuses" class="col" id="{{status.statusCamelCase}}" ui-tree="{{status.statusCamelCase}}">
@@ -11,4 +11,24 @@
             </div>
         </div>
     </div>
+</div>-->
+
+<h1>Kanban Board</h1>
+<div class="btn btn-sm btn-primary" ng-click="createNew()">Create new card</div>
+
+<div id="swimlane">
+    <ul class="board-col-holder">
+        <li ng-repeat="status in allStatuses" class="board-col" id="{{status.statusCamelCase}}" ui-tree="{{status.statusCamelCase}}">
+            <div class="col-header">
+                <h2>{{status.friendlyStatus}}</h2>
+            </div>
+            <div ui-tree-nodes="" ng-model="allCards[status.statusCamelCase]">
+                <div class="card" ng-repeat="item in allCards[status.statusCamelCase]" ui-tree-node ng-class="[item.type=='Bug' ? 'bug-card': '',item.type=='Story' ? 'story-card': '',item.type=='Task' ? 'task-card': '']">
+                    <div class="truncate200px">
+                        {{item.title}}
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
 </div>

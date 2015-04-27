@@ -1,7 +1,5 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
 using Board.Data.Models;
 
 namespace Board.DAL.EF
@@ -11,7 +9,7 @@ namespace Board.DAL.EF
         public BoardContext()
             : base("BoardContext")
         {
-
+            Database.SetInitializer<BoardContext>(new DbInitializer());
         }
 
         public DbSet<Card> Cards { get; set; }

@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Board.DAL.Interfaces;
 using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
 using Board.Data.Interfaces;
 using Board.DAL.EF;
+using Board.DAL.Interfaces;
 
 namespace Board.DAL.Repositories
 {
@@ -29,7 +29,7 @@ namespace Board.DAL.Repositories
             return EntitySet;
         }
 
-        public IQueryable<T> Find(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        public IQueryable<T> Find(Expression<Func<T, bool>> predicate)
         {
             return EntitySet.Where(predicate);
         }
