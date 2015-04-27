@@ -1,0 +1,81 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.flexbox {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
+    margin-top:20px;
+}
+
+    .flexbox .col {
+        -ms-flex: 1;
+        flex: 1;
+        padding: 10px;
+    }
+
+        .flexbox .col:nth-child(1) {
+            background: #ccc;
+            order: 1;
+        }
+
+        .flexbox .col:nth-child(2) {
+            background: #eee;
+            order: 0;
+        }
+
+        .flexbox .col:nth-child(3) {
+            background: #eee;
+            order: 2;
+        }
+
+.story-card, .task-card, .bug-card {
+    min-height: 40px !important;
+    margin: 5px !important;
+    border-radius: 8px;
+    padding: 6px !important;
+    text-align: center;
+    color: black;
+    font-size: large;
+    font-weight: bold;
+    cursor:pointer;
+}
+
+.story-card {
+    border: 2px solid blue;
+    background: rgba(0, 0, 255, 0.6);
+}
+
+.task-card {
+    border: 2px solid rgb(0,255,0);
+    background: rgba(0, 255, 0,0.6);
+}
+
+.bug-card {
+    border: 2px solid red;
+    background: rgba(255, 0, 0, 0.6);
+}
+
+.modal-header {
+    background-color: ActiveCaption;
+}
+
+.modal-body {
+    background-color: whitesmoke;
+}
