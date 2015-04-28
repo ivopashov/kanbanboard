@@ -28,6 +28,7 @@
             }).result.then(function (vm) {
                 boardService.createNew({ title: vm.title, type: vm.type.replace(/ /g, ''), status: vm.status.replace(/ /g, '') }).then(function (success) {
                     var status = stringManipulationService.firstLetterToLowerCase(success.data.status);
+                    success.data.visibility = true;
                     $scope.allCards[status].push(success.data);
                     notificationService.success("The card was added succesfully");
                 }, function (error) {
@@ -52,6 +53,7 @@
 
         $scope.handleUnsuccessfullDrop = function (event) {
             //go back to previous state
+            var item = event.source.nodeScope.$modelValue;
             event.dest.nodesScope.$modelValue.splice(event.dest.index, 1);
             event.source.nodesScope.$modelValue.splice(event.source.index, 0, item);
         }
