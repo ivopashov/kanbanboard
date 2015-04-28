@@ -1,6 +1,19 @@
-﻿
+﻿<!--<pre>{{allCards | json}}</pre>-->
 <h1>Kanban Board</h1>
-<div class="btn btn-sm btn-primary" ng-click="createNew()">Create new card</div>
+<div class="row">
+    <div class="col-sm-4">
+        <label class="control-label">Filters: </label>
+        <div ng-if="filters.Task" class="btn btn-sm btn-success" ng-click="toggle('Task')">Task</div>
+        <div ng-if="!filters.Task" class="btn btn-sm btn-default" ng-click="toggle('Task')">Task</div>
+        <div ng-if="filters.Bug" class="btn btn-sm btn-danger" ng-click="toggle('Bug')">Bug</div>
+        <div ng-if="!filters.Bug" class="btn btn-sm btn-default" ng-click="toggle('Bug')">Bug</div>
+        <div ng-if="filters.Story" class="btn btn-sm btn-primary" ng-click="toggle('Story')">Story</div>
+        <div ng-if="!filters.Story" class="btn btn-sm btn-default" ng-click="toggle('Story')">Story</div>
+    </div>
+    <div class="col-sm-2">
+        <div class="btn btn-sm btn-primary" ng-click="createNew()">Create new card</div>
+    </div>
+</div>
 
 <div id="swimlane">
     <ul class="board-col-holder">
@@ -9,9 +22,26 @@
                 <h2>{{status.friendlyStatus}}</h2>
             </div>
             <div ui-tree-nodes="" ng-model="allCards[status.statusCamelCase]">
-                <div class="card" ng-repeat="item in allCards[status.statusCamelCase]" ui-tree-node ng-class="[item.type=='Bug' ? 'bug-card': '',item.type=='Story' ? 'story-card': '',item.type=='Task' ? 'task-card': '']">
-                    <div class="truncate200px">
-                        {{item.title}}
+                <div ng-repeat="item in allCards[status.statusCamelCase]" ui-tree-node>
+                    <div ng-if="item.visibility" class="card" ng-class="[item.type=='Bug' ? 'bug-card': '',item.type=='Story' ? 'story-card': '',item.type=='Task' ? 'task-card': '']">
+                        <div class="truncate200px">
+                            {{item.title}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="board-col" id="trash" ui-tree="recycleBin">
+            <div class="col-header">
+                <h2 style="display: inline-block">Trash</h2>
+                <div class="btn btn-sm btn-primary" ng-if="trashedItems.length > 0" ng-click="recycleDeletedItems()">Recycle</div>
+            </div>
+            <div ui-tree-nodes="" ng-model="trashedItems">
+                <div ng-repeat="item in trashedItems" ui-tree-node>
+                    <div class="card" ng-class="[item.type=='Bug' ? 'bug-card': '',item.type=='Story' ? 'story-card': '',item.type=='Task' ? 'task-card': '']">
+                        <div class="truncate200px">
+                            {{item.title}}
+                        </div>
                     </div>
                 </div>
             </div>

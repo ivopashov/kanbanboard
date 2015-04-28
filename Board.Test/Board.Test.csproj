@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="angulartests\boardTests.js" />
+    <Content Include="angulartests\how to run jasmine tests.txt" />
     <Content Include="css\jasmine.css" />
     <Content Include="Scripts\jasmine-html.js" />
     <Content Include="Scripts\jasmine.html" />

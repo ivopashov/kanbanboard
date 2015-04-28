@@ -13,6 +13,9 @@
         },
         allStatuses: function () {
             return $http.get('api/statuses/getall');
+        },
+        remove: function (id) {
+            return $http.get('api/statuses/remove?id=' + id);
         }
     };
 }]);

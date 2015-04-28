@@ -117,5 +117,22 @@ namespace Board.Web.Controllers
                 return BadRequest("Could not retrieve statuses");
             }
         }
+
+        [HttpGet]
+        [Route("api/statuses/remove")]
+        public IHttpActionResult RemoveItem([FromUri]int id)
+        {
+            try
+            {
+                var item = _cardRepository.GetById(id);
+                _cardRepository.Delete(item);
+                return Ok(id);
+            }
+            catch (Exception e)
+            {
+                _logger.Error("Could not delete item. Exception Message: " + e.Message);
+                return BadRequest("Could not delete item");
+            }
+        }
     }
 }

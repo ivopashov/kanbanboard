@@ -5,6 +5,10 @@
         //init
         $scope.allCards = {};
         $scope.allStatuses = [];
+        $scope.trashedItems = [];
+        $scope.filters = {
+            Task: true, Bug: true, Story: true
+        }
 
         //retrieve data
         boardService.allStatuses().then(function (statuses) {
@@ -37,6 +41,7 @@
         $scope.handleItemDrop = function (event) {
             var item = event.source.nodeScope.$modelValue;
             var newStatus = event.dest.nodesScope.$parent.$element[0].id;
+            if (newStatus == 'trash') return;
             boardService.updateStatus({ id: item.id, newStatus: newStatus }).then(function (success) {
                 notificationService.success("Item status updated successfully");
             }, function (error) {
@@ -68,6 +73,41 @@
                 } else {
                     $scope.allCards[statusLowerCaseFirstLetter] = [];
                 }
+            });
+            $scope.changeItemsVisibility($scope.allCards, true);
+        }
+
+        $scope.toggle = function (filter) {
+            $scope.filters[filter] = !$scope.filters[filter];
+            $scope.changeItemsVisibility($scope.allCards, $scope.filters[filter], filter);
+        }
+
+        $scope.changeItemsVisibility = function (obj, val, type) {
+            for (var prop in obj) {
+                if ($scope.allCards.hasOwnProperty(prop)) {
+                    angular.forEach($scope.allCards[prop], function (item) {
+                        if (angular.isDefined(type)) {
+                            item.type == type ? item.visibility = val : item.visibility = item.visibility;
+                        } else {
+                            item.visibility = val;
+                        }
+                    });
+                }
+            }
+        }
+
+        $scope.recycleBin = {
+            dropped: function (event) {
+                $scope.handleItemDrop(event);
+            }
+        }
+        
+        $scope.recycleDeletedItems = function () {
+            angular.forEach($scope.trashedItems, function (val) {
+                boardService.remove(val.id).then(function (success) {
+                    var temp = $scope.trashedItems.filter(function (x) { return x.id == success.data })[0];
+                    $scope.trashedItems.splice($scope.trashedItems.indexOf(temp),1);
+                });
             });
         }
     }]);

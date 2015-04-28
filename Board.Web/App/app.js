@@ -21,7 +21,7 @@ app.config(['$stateProvider', '$locationProvider', '$httpProvider', '$urlRouterP
         $urlRouterProvider.otherwise("/");
 
         $stateProvider.state('board', {
-            url: '/board',
+            url: '/',
             templateUrl: '/App/templates/board.html',
             controller: 'boardController'
         });
