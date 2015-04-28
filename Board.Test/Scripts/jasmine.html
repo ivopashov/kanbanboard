@@ -1,0 +1,45 @@
+﻿
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Jasmine Task Runner</title>
+    <link href="../css/jasmine.css" rel="stylesheet" />
+    <script src="jasmine.js"></script>
+    <script src="jasmine-html.js"></script>
+    <script src="http://localhost:58014/Scripts/bootstrap.js"></script>
+    <script src="http://localhost:58014/Scripts/toastr.js"></script>
+    <script src="http://localhost:58014/Scripts/jquery-1.10.2.js"></script>
+    <script src="http://localhost:58014/Scripts/angular.js"></script>
+    <script src="http://localhost:58014/Scripts/angular-mocks.js"></script>
+    <script src="http://localhost:58014/Scripts/angular-ui/ui-bootstrap-tpls.js"></script>
+    <script src="http://localhost:58014/Scripts/angular-ui/ui-bootstrap.js"></script>
+    <script src="http://localhost:58014/Scripts/angular-ui-tree.js"></script>
+    <script src="http://localhost:58014/Scripts/angular-ui-router.js"></script>
+    <script src="http://localhost:58014/Scripts/loading-bar.js"></script>
+    <script src="http://localhost:58014/App/app.js"></script>
+    <script src="http://localhost:58014/App/controllers/boardController.js"></script>
+    <script src="http://localhost:58014/App/services/boardService.js"></script>
+    <script src="http://localhost:58014/App/services/notificationService.js"></script>
+    <script src="http://localhost:58014/App/services/stringManipulationService.js"></script>
+    <script src="../angulartests/boardtests.js"></script>
+    <script type="text/javascript">
+        (function () {
+            var jasmineEnv = jasmine.getEnv();
+            jasmineEnv.updateInterval = 250;
+            var htmlReporter = new jasmine.TrivialReporter();
+            jasmineEnv.addReporter(htmlReporter);
+            jasmineEnv.specFilter = function (spec) {
+                return htmlReporter.specFilter(spec);
+            }
+            window.onload = function () {
+                jasmineEnv.execute();
+            }
+        })();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

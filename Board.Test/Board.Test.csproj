@@ -67,6 +67,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +84,14 @@
       <Name>Board.Web</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="angulartests\boardTests.js" />
+    <Content Include="css\jasmine.css" />
+    <Content Include="Scripts\jasmine-html.js" />
+    <Content Include="Scripts\jasmine.html" />
+    <Content Include="Scripts\jasmine.js" />
+  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

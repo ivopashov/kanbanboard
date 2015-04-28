@@ -1,0 +1,2 @@
+﻿Start the web project (some js are consumed from there)
+open the jasmine.html in a browser

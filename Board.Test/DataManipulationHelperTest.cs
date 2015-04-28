@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Board.Data.Enums;
-using Board.Data.Models;
-using Board.DAL.EF;
-using Board.DAL.Repositories;
-using Board.Web.Controllers;
 using Board.Web.Helpers;
-using Board.Web.Logging;
 using Board.Web.Models;
-using NSubstitute;
-using NSubstitute.Routing.Handlers;
 using NUnit.Framework;
 
 namespace Board.Test
