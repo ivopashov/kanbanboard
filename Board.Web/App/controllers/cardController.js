@@ -1,5 +1,5 @@
-﻿app.controller('boardController', ['$scope', 'stringManipulationService','boardService', 'notificationService', '$modal',
-    function ($scope, stringManipulationService, boardService, notificationService, $modal) {
+﻿app.controller('cardController', ['$scope', 'stringManipulationService', 'cardService', 'notificationService', '$modal',
+    function ($scope, stringManipulationService, cardService, notificationService, $modal) {
         'use strict';
 
         //init
@@ -11,8 +11,8 @@
         }
 
         //retrieve data
-        boardService.allStatuses().then(function (statuses) {
-            boardService.getAll().then(function (cards) {
+        cardService.allStatuses().then(function (statuses) {
+            cardService.getAll().then(function (cards) {
                 $scope.processCardsAndStatuses(statuses.data, cards.data);
             }, function (carderror) {
                 notificationService.error(carderror.data.message);
@@ -24,9 +24,9 @@
         $scope.createNew = function () {
             $modal.open({
                 templateUrl: '/App/templates/dialog/createNewCard.html',
-                controller: 'boardController'
+                controller: 'cardController'
             }).result.then(function (vm) {
-                boardService.createNew({ title: vm.title, type: vm.type.replace(/ /g, ''), status: vm.status.replace(/ /g, '') }).then(function (success) {
+                cardService.createNew({ title: vm.title, type: vm.type.replace(/ /g, ''), status: vm.status.replace(/ /g, '') }).then(function (success) {
                     var status = stringManipulationService.firstLetterToLowerCase(success.data.status);
                     success.data.visibility = true;
                     $scope.allCards[status].push(success.data);
@@ -43,7 +43,7 @@
             var item = event.source.nodeScope.$modelValue;
             var newStatus = event.dest.nodesScope.$parent.$element[0].id;
             if (newStatus == 'trash') return;
-            boardService.updateStatus({ id: item.id, newStatus: newStatus }).then(function (success) {
+            cardService.updateStatus({ id: item.id, newStatus: newStatus }).then(function (success) {
                 notificationService.success("Item status updated successfully");
             }, function (error) {
                 $scope.handleUnsuccessfullDrop(event);
@@ -103,12 +103,14 @@
                 $scope.handleItemDrop(event);
             }
         }
-        
+
         $scope.recycleDeletedItems = function () {
+            //todo: field for improvement - not good to delete items in an enumerated collection
             angular.forEach($scope.trashedItems, function (val) {
-                boardService.remove(val.id).then(function (success) {
+                cardService.remove(val.id).then(function (success) {
                     var temp = $scope.trashedItems.filter(function (x) { return x.id == success.data })[0];
-                    $scope.trashedItems.splice($scope.trashedItems.indexOf(temp),1);
+                    $scope.trashedItems.splice($scope.trashedItems.indexOf(temp), 1);
+                    notificationService.success("Card was deleted successfully");
                 });
             });
         }

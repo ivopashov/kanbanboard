@@ -23,7 +23,7 @@ app.config(['$stateProvider', '$locationProvider', '$httpProvider', '$urlRouterP
         $stateProvider.state('board', {
             url: '/',
             templateUrl: '/App/templates/board.html',
-            controller: 'boardController'
+            controller: 'cardController'
         });
 
     }]);

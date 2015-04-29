@@ -1,4 +1,4 @@
-﻿app.service('boardService', ['$http', function ($http) {
+﻿app.service('cardService', ['$http', function ($http) {
     'use strict';
 
     return {
@@ -15,7 +15,7 @@
             return $http.get('api/statuses/getall');
         },
         remove: function (id) {
-            return $http.get('api/statuses/remove?id=' + id);
+            return $http.get('api/cards/remove?id=' + id);
         }
     };
 }]);

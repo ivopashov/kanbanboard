@@ -29,7 +29,7 @@
         });
     });
 
-    describe('boardController', function () {
+    describe('cardController', function () {
         beforeEach(module('app'));
 
         var $controller;
@@ -44,7 +44,7 @@
             it('remove the object from target and put it back in source', function () {
                 //Arrange
                 var $scope = {};
-                var controller = $controller('boardController', { $scope: $scope });
+                var controller = $controller('cardController', { $scope: $scope });
                 var event = {
                     dest: {
                         nodesScope: {
@@ -77,7 +77,7 @@
             it('cards of all statuses', function () {
                 //Arrange
                 var $scope = {};
-                var controller = $controller('boardController', { $scope: $scope });
+                var controller = $controller('cardController', { $scope: $scope });
                 var statuses = ["InProgress", "Done", "NotStarted"];
                 var cards = {
                     done: [{ title: "bug 111", type: 'Bug' }],
@@ -112,7 +112,7 @@
             it('Cards of 2 statuses. Test if the third status is initialized in allCards with an empty set.', function () {
                 //Arrange
                 var $scope = {};
-                var controller = $controller('boardController', { $scope: $scope });
+                var controller = $controller('cardController', { $scope: $scope });
                 var statuses = ["InProgress", "Done", "NotStarted"];
                 var cards = {
                     done: [{ title: "bug 111", type: 'Bug' }],
@@ -132,7 +132,7 @@
             it('Test if toggle works as expected', function () {
                 //Arrange
                 var $scope = {};
-                var controller = $controller('boardController', { $scope: $scope });
+                var controller = $controller('cardController', { $scope: $scope });
                 $scope.allCards = {
                     done: [{ title: "bug 111", type: 'Bug',visibility:true }],
                     inProgress: [{ title: "story 111", type: 'Story', visibility: true }],

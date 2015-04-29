@@ -195,8 +195,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
-    <Content Include="App\controllers\boardController.js" />
-    <Content Include="App\services\boardService.js" />
+    <Content Include="App\controllers\cardController.js" />
+    <Content Include="App\services\cardService.js" />
     <Content Include="App\services\notificationService.js" />
     <Content Include="App\services\stringManipulationService.js" />
     <Content Include="App\templates\board.html" />

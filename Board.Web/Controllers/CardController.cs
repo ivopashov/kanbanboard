@@ -119,7 +119,7 @@ namespace Board.Web.Controllers
         }
 
         [HttpGet]
-        [Route("api/statuses/remove")]
+        [Route("api/cards/remove")]
         public IHttpActionResult RemoveItem([FromUri]int id)
         {
             try
