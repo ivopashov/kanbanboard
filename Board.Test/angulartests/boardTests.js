@@ -32,28 +32,25 @@
     describe('boardController', function () {
         beforeEach(module('app'));
 
-        var $controller, boardService, notificationService, $modal, stringManipulationService;
+        var $controller;
 
 
-        beforeEach(inject(function (_$controller_, _boardService_, _notificationService_, _$modal_, _stringManipulationService_) {
+        beforeEach(inject(function (_$controller_) {
             // The injector unwraps the underscores (_) from around the parameter names when matching
             $controller = _$controller_;
-            boardService = _boardService_;
-            notificationService = _notificationService_;
-            $modal = _$modal_;
-            stringManipulationService = _stringManipulationService_;
         }));
 
-        describe('$scope.grade', function () {
-            it('sets the strength to "strong" if the password length is >8 chars', function () {
+        describe('$scope.handleUnsuccessfuldrop', function () {
+            it('remove the object from target and put it back in source', function () {
+                //Arrange
                 var $scope = {};
-                var controller = $controller('boardController', { $scope: $scope, boardService: boardService, stringManipulationService: stringManipulationService, $modal: $modal, notificationService: notificationService });
+                var controller = $controller('boardController', { $scope: $scope });
                 var event = {
                     dest: {
                         nodesScope: {
                             $modelValue: [1, 2, 3]
                         },
-                        index: 1
+                        index: 0
                     },
                     source: {
                         nodesScope: {
@@ -65,10 +62,89 @@
                         index: 0
                     }
                 }
+                //Act
                 $scope.handleUnsuccessfullDrop(event);
+                //Assert
+                var temp = event.dest.nodesScope.$modelValue.filter(function (x) { return x == event.source.nodeScope.$modelValue })[0];
+                expect(event.source.nodesScope.$modelValue.length).toEqual(4);
+                expect(event.dest.nodesScope.$modelValue.length).toEqual(2);
+                expect(temp).toBeUndefined();
 
+            });
+        });
 
-                expect("aaa").toEqual('aaa');
+        describe('$scope.processCardsAndStatuses', function () {
+            it('cards of all statuses', function () {
+                //Arrange
+                var $scope = {};
+                var controller = $controller('boardController', { $scope: $scope });
+                var statuses = ["InProgress", "Done", "NotStarted"];
+                var cards = {
+                    done: [{ title: "bug 111", type: 'Bug' }],
+                    inProgress: [{ title: "story 111", type: 'Story' }],
+                    notStarted: [{ title: "task 111", type: 'Task' }],
+                };
+                //Act
+                $scope.processCardsAndStatuses(statuses, cards);
+                //Assert
+                expect($scope.allStatuses.length).toEqual(3);
+                expect($scope.allStatuses[0].statusCamelCase).toEqual('inProgress');
+                expect($scope.allStatuses[0].friendlyStatus).toEqual('In Progress');
+                expect($scope.allCards[$scope.allStatuses[0].statusCamelCase].length).toEqual(1);
+                expect($scope.allCards[$scope.allStatuses[1].statusCamelCase].length).toEqual(1);
+                expect($scope.allCards[$scope.allStatuses[2].statusCamelCase].length).toEqual(1);
+                for (var prop in $scope.allCards) {
+                    if ($scope.allCards.hasOwnProperty(prop)) {
+                        angular.forEach($scope.allCards[prop], function (item) {
+                            expect(item.visibility).toEqual(true);
+                        });
+                    }
+                }
+
+                angular.forEach($scope.allStatuses, function (item) {
+                    expect($scope[item.statusCamelCase].dropped).toBeDefined();
+                });
+
+            });
+        });
+
+        describe('$scope.processCardsAndStatuses', function () {
+            it('Cards of 2 statuses. Test if the third status is initialized in allCards with an empty set.', function () {
+                //Arrange
+                var $scope = {};
+                var controller = $controller('boardController', { $scope: $scope });
+                var statuses = ["InProgress", "Done", "NotStarted"];
+                var cards = {
+                    done: [{ title: "bug 111", type: 'Bug' }],
+                    inProgress: [{ title: "story 111", type: 'Story' }],
+                };
+                //Act
+                $scope.processCardsAndStatuses(statuses, cards);
+                //Assert
+                expect($scope.allCards[$scope.allStatuses[0].statusCamelCase].length).toEqual(1);
+                expect($scope.allCards[$scope.allStatuses[1].statusCamelCase].length).toEqual(1);
+                expect($scope.allCards[$scope.allStatuses[2].statusCamelCase]).toBeDefined();
+                expect($scope.allCards[$scope.allStatuses[2].statusCamelCase].length).toEqual(0);
+            });
+        });
+
+        describe('$scope.toggle', function () {
+            it('Test if toggle works as expected', function () {
+                //Arrange
+                var $scope = {};
+                var controller = $controller('boardController', { $scope: $scope });
+                $scope.allCards = {
+                    done: [{ title: "bug 111", type: 'Bug',visibility:true }],
+                    inProgress: [{ title: "story 111", type: 'Story', visibility: true }],
+                    notStarted: [{ title: "task 111", type: 'Task', visibility: true }]
+                };
+
+                //Act
+                $scope.toggle('Bug');
+                //Assert
+                expect($scope.allCards.done[0].visibility).toEqual(false);
+                expect($scope.allCards.inProgress[0].visibility).toEqual(true);
+                expect($scope.allCards.notStarted[0].visibility).toEqual(true);
             });
         });
     });

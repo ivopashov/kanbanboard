@@ -1,5 +1,5 @@
-﻿app.controller('boardController', ['$scope', 'boardService', 'notificationService', '$modal', 'stringManipulationService',
-    function ($scope, boardService, notificationService, $modal, stringManipulationService) {
+﻿app.controller('boardController', ['$scope', 'stringManipulationService','boardService', 'notificationService', '$modal',
+    function ($scope, stringManipulationService, boardService, notificationService, $modal) {
         'use strict';
 
         //init

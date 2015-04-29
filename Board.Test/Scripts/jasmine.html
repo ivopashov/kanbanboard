@@ -8,6 +8,7 @@
     <link href="../css/jasmine.css" rel="stylesheet" />
     <script src="jasmine.js"></script>
     <script src="jasmine-html.js"></script>
+    <script src="http://localhost:58014/Scripts/jquery-1.10.2.js"></script>
     <script src="http://localhost:58014/Scripts/bootstrap.js"></script>
     <script src="http://localhost:58014/Scripts/toastr.js"></script>
     <script src="http://localhost:58014/Scripts/jquery-1.10.2.js"></script>
@@ -28,7 +29,7 @@
         (function () {
             var jasmineEnv = jasmine.getEnv();
             jasmineEnv.updateInterval = 250;
-            var htmlReporter = new jasmine.TrivialReporter();
+            var htmlReporter = new jasmine.HtmlReporter();
             jasmineEnv.addReporter(htmlReporter);
             jasmineEnv.specFilter = function (spec) {
                 return htmlReporter.specFilter(spec);
